@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd $VSC_SCRATCH
+
 wget http://www.cril.univ-artois.fr/PB11/benchs/PB11-BIGINT.tar
 wget http://www.cril.univ-artois.fr/PB11/benchs/PB11-SMALLINT.tar
 

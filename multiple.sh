@@ -6,10 +6,11 @@
 #SBATCH --partition=skylake
 #SBATCH --mem-per-cpu=6144
 
+module purge
 module load parallel/20210622-GCCcore-10.3.0
-module load cmake/
-module load GCCcore/
-module load boost/.....
+module load CMake/3.20.1-GCCcore-10.3.0
+module load make/4.3-GCCcore-10.3.0
+module load Boost/1.76.0-GCC-10.3.0
 
 instances=$VSC_SCRATCH/instances2011
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
