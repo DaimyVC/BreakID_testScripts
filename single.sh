@@ -2,8 +2,7 @@
 
 cd ..
 
-mkdir tmp
-TMPDIR="tmp"
+TMPDIR=$VSC_SCRATCH
 
 instances=INSTANCES
 filename=FILENAME
@@ -123,5 +122,3 @@ for i in "${!ALLCONFIGS[@]}"; do
 
   writeback ${ALLCONFIGS[$i]}
 done
-
-rm -r $TMPDIR
