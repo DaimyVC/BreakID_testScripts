@@ -11,7 +11,6 @@ extension="${filename##*.}"
 filename="${filename%.*}"
 
 TIMEOUT_SOLVER=TIME_L
-TIMEOUT_SOLVER_PL=$TIMEOUT_SOLVER
 TIMEOUT_BREAKID=$(echo 10*$TIMEOUT_SOLVER / 1 | bc)
 MEMORY_LIMIT=MEM_L
 
@@ -64,9 +63,9 @@ ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12")
 
 ##BASE CASE, NO SYMM BREAKING
-cat $instances/${filename}.${extension} | ./roundingsat 1>$TMPDIR/${filename}.txt
+timeout $TIMEOUT_SOLVER cat $instances/${filename}.${extension} | ./roundingsat 1>$TMPDIR/${filename}.txt
 
-FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-][0-9]{1,}');
+FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
 RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
 STATUS=$(cat $TMPDIR/${filename}.txt | grep '^s ' | grep -Po 's\s\K.*')
 
@@ -93,8 +92,9 @@ writeback() {
 
 writeback $CONFIG0
 
-for i in "${!ALLCONFIGS[@]}"; do 
-  cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>./$TMPDIR/breakinfo.txt 1>./$TMPDIR/opb.opb
+for i in "${!ALLCONFIGS[@]}"; do
+  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>./$TMPDIR/breakinfo.txt 1>./$TMPDIR/opb.opb
+
   SYMM_GENS=$(cat $TMPDIR/breakinfo.txt | grep '**** symmetry generators detected:' | grep -Eo '[0-9]{1,}')
   SYMM_GROUPS=$(cat $TMPDIR/breakinfo.txt | grep '**** subgroups detected:' | grep -Eo '[0-9]{1,}')
   TOTAL_CONSTR=$(cat $TMPDIR/opb.opb | grep '* #variable= ' | grep -Eo '#constraint= [0-9]{1,}' | grep -Eo '[0-9]{1,}')
@@ -102,10 +102,25 @@ for i in "${!ALLCONFIGS[@]}"; do
   BIN_CONSTR=$(cat $TMPDIR/breakinfo.txt | grep '**** extra binary symmetry breaking clauses added:' | grep -Eo '[0-9]{1,}')
   MATRICES=$(cat $TMPDIR/breakinfo.txt | grep '**** matrices detected:' | grep -Eo '[0-9]{1,}')
   ROW_SWAPS=$(cat $TMPDIR/breakinfo.txt | grep '**** row swaps detected:' | grep -Eo '[0-9]{1,}')
-  cat $TMPDIR/opb.opb | ./roundingsat 1>$TMPDIR/${filename}.txt
-  FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-][0-9]{1,}');
+
+  timeout $TIMEOUT_SOLVER cat $TMPDIR/opb.opb | ./roundingsat 1>$TMPDIR/${filename}.txt
+  FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
   RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
   STATUS=$(cat $TMPDIR/${filename}.txt | grep '^s ' | grep -Po 's\s\K.*')
+
+
+  echo "$filename with ${ALLCONFIGS[$i]}"
+  echo "symmetry generators found: $SYMM_GENS"
+  echo "symmetry subgroups found: $SYMM_GROUPS"
+  echo "total constraints added: $TOTAL_CONSTR"
+  echo "regular constraints added: $REG_CONSTR"
+  echo "binary constraints added: $BIN_CONSTR"
+  echo "row swaps added: $ROW_SWAPS"
+  echo "matrices found: $MATRICES"
+  echo "status: $STATUS"
+  echo "found optimum: $FOUND_OPT"
+  echo "total runtime: $RUNTIME"
+
   writeback ${ALLCONFIGS[$i]}
 done
 
