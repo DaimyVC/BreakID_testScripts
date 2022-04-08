@@ -13,6 +13,7 @@ instances=INSTANCES
 filename=FILENAME
 extension="${filename##*.}"
 filename="${filename%.*}"
+results=$VSC_DATA/results
 
 TIMEOUT_SOLVER=TIME_L
 TIMEOUT_BREAKID=$(echo 10*$TIMEOUT_SOLVER / 1 | bc)
@@ -78,10 +79,10 @@ echo "runtime: $RUNTIME"
 echo "status: $STATUS"
 echo "found optimum: $FOUND_OPT"
 
-echo ", RUNTIME, STATUS, FOUND_OPT, SYMM_GENS, SYMM_GROUPS, TOTAL_CONSTR, REG_CONSTR, BIN_CONSTR, MATRICES, ROW_SWAPS"  >> results/"$filename"_result.csv
+#echo ", RUNTIME, STATUS, FOUND_OPT, SYMM_GENS, SYMM_GROUPS, TOTAL_CONSTR, REG_CONSTR, BIN_CONSTR, MATRICES, ROW_SWAPS"  >> "$results"/"$filename"_result.csv
 
 writeback() {
-  echo "${filename}_${1}, $RUNTIME, $STATUS, $FOUND_OPT, $SYMM_GENS, $SYMM_GROUPS, $TOTAL_CONSTR, $REG_CONSTR, $BIN_CONSTR, $MATRICES, $ROW_SWAPS"  >> results/"$filename"_result.csv
+  echo "${filename}_${1}, $RUNTIME, $STATUS, $FOUND_OPT, $SYMM_GENS, $SYMM_GROUPS, $TOTAL_CONSTR, $REG_CONSTR, $BIN_CONSTR, $MATRICES, $ROW_SWAPS"  >> "$results"/"$filename"_result.csv
   RUNTIME="NA"
   STATUS="NA"
   FOUND_OPT="NA"
