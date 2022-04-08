@@ -12,7 +12,7 @@ module load CMake/3.20.1-GCCcore-10.3.0
 module load make/4.3-GCCcore-10.3.0
 module load Boost/1.76.0-GCC-10.3.0
 
-instances=$VSC_SCRATCH/instances2011
+instances=$VSC_SCRATCH/instances
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 mkdir running_scripts
 
