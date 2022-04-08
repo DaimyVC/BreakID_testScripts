@@ -25,5 +25,8 @@ do
     chmod +x running_scripts/${filename}.sh
 done
 
-parallel -j $SLURM_NTASKS srun -N1 -n1 -c1 --exclusive ::: $(ls -1 ./running_scripts/*.sh)
+srun="srun -N1 -n1 -c1 --exclusive"
+parallel="parallel -j $SLURM_NTASKS"
+
+$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
 wait
