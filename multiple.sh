@@ -1,13 +1,13 @@
 #!/bin/bash
+#
+#SBATCH --job-name=BID
+#SBATCH --time=100:05:00
+#SBATCH --ntasks=20
+#SBATCH --partition=skylake
+#SBATCH --mem-per-cpu=6144
 
-#SBATCH --job-name BID
-#SBATCH --time 100:05:00
-#SBATCH --ntasks 20
-#SBATCH --partition skylake
-#SBATCH --mem-per-cpu 6144
-
-echo $SLURM_JOB_NAME
-echo $SLURM_NTASKS
+echo "$SLURM_JOB_NAME"
+echo "$SLURM_NTASKS"
 
 module purge
 module load parallel/20210622-GCCcore-10.3.0
@@ -17,6 +17,7 @@ module load Boost/1.76.0-GCC-10.3.0
 
 instances=$VSC_SCRATCH/instances
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
+
 mkdir running_scripts
 
 for filename in $(ls "$instances")
@@ -30,6 +31,6 @@ done
 
 srun="srun -N1 -n1 -c1 --exclusive"
 parallel="parallel -j $SLURM_NTASKS"
-
+echo $parallel
 #$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
 #wait
