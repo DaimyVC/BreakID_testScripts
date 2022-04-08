@@ -98,7 +98,7 @@ writeback() {
 writeback $CONFIG0
 
 for i in "${!ALLCONFIGS[@]}"; do
-  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>./$TMPDIR/breakinfo.txt 1>./$TMPDIR/opb.opb
+  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>$TMPDIR/breakinfo.txt 1>$TMPDIR/opb.opb
 
   SYMM_GENS=$(cat $TMPDIR/breakinfo.txt | grep '**** symmetry generators detected:' | grep -Eo '[0-9]{1,}')
   SYMM_GROUPS=$(cat $TMPDIR/breakinfo.txt | grep '**** subgroups detected:' | grep -Eo '[0-9]{1,}')
