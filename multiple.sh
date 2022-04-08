@@ -28,5 +28,5 @@ done
 srun="srun -N1 -n1 -c1 --exclusive"
 parallel="parallel -j $SLURM_NTASKS"
 
-$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
+#$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
 wait

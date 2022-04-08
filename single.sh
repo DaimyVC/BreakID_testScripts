@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ..
+
 TMPDIR=$VSC_SCRATCH
 
 instances=INSTANCES
