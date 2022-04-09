@@ -98,20 +98,20 @@ writeback() {
 writeback $CONFIG0
 
 for i in "${!ALLCONFIGS[@]}"; do
-  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>$TMPDIR/breakinfo.txt 1>$TMPDIR/opb.opb
+  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>$TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt 1>$TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb
 
-  SYMM_GENS=$(cat $TMPDIR/breakinfo.txt | grep '**** symmetry generators detected:' | grep -Eo '[0-9]{1,}')
-  SYMM_GROUPS=$(cat $TMPDIR/breakinfo.txt | grep '**** subgroups detected:' | grep -Eo '[0-9]{1,}')
-  TOTAL_CONSTR=$(cat $TMPDIR/opb.opb | grep '* #variable= ' | grep -Eo '#constraint= [0-9]{1,}' | grep -Eo '[0-9]{1,}')
-  REG_CONSTR=$(cat $TMPDIR/breakinfo.txt | grep '**** regular symmetry breaking clauses added:' | grep -Eo '[0-9]{1,}')
-  BIN_CONSTR=$(cat $TMPDIR/breakinfo.txt | grep '**** extra binary symmetry breaking clauses added:' | grep -Eo '[0-9]{1,}')
-  MATRICES=$(cat $TMPDIR/breakinfo.txt | grep '**** matrices detected:' | grep -Eo '[0-9]{1,}')
-  ROW_SWAPS=$(cat $TMPDIR/breakinfo.txt | grep '**** row swaps detected:' | grep -Eo '[0-9]{1,}')
+  SYMM_GENS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** symmetry generators detected:' | grep -Eo '[0-9]{1,}')
+  SYMM_GROUPS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** subgroups detected:' | grep -Eo '[0-9]{1,}')
+  TOTAL_CONSTR=$(cat $TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb | grep '* #variable= ' | grep -Eo '#constraint= [0-9]{1,}' | grep -Eo '[0-9]{1,}')
+  REG_CONSTR=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** regular symmetry breaking clauses added:' | grep -Eo '[0-9]{1,}')
+  BIN_CONSTR=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** extra binary symmetry breaking clauses added:' | grep -Eo '[0-9]{1,}')
+  MATRICES=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** matrices detected:' | grep -Eo '[0-9]{1,}')
+  ROW_SWAPS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** row swaps detected:' | grep -Eo '[0-9]{1,}')
 
-  timeout $TIMEOUT_SOLVER cat $TMPDIR/opb.opb | ./roundingsat 1>$TMPDIR/${filename}.txt
-  FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
-  RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
-  STATUS=$(cat $TMPDIR/${filename}.txt | grep '^s ' | grep -Po 's\s\K.*')
+  timeout $TIMEOUT_SOLVER cat $TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb | ./roundingsat 1>$TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt
+  FOUND_OPT=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
+  RUNTIME=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
+  STATUS=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^s ' | grep -Po 's\s\K.*')
 
 
   echo "$filename with ${ALLCONFIGS[$i]}"
