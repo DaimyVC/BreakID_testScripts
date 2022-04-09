@@ -71,18 +71,18 @@ ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A
 timeout $TIMEOUT_SOLVER cat $instances/${filename}.${extension} | ./roundingsat 1>$TMPDIR/${filename}.txt
 
 FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
-RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
+RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.]?[0-9]?{1,}');
 STATUS=$(cat $TMPDIR/${filename}.txt | grep '^s ' | grep -Po 's\s\K.*')
 
 echo "$filename without symmetry breaking:"
-echo "runtime: $RUNTIME"
+echo "runtime: $RUNTIME s"
 echo "status: $STATUS"
 echo "found optimum: $FOUND_OPT"
 
-#echo ", RUNTIME, STATUS, FOUND_OPT, SYMM_GENS, SYMM_GROUPS, TOTAL_CONSTR, REG_CONSTR, BIN_CONSTR, MATRICES, ROW_SWAPS"  >> "$results"/"$filename"_result.csv
+echo ", RUNTIME, STATUS, FOUND_OPT, SYMM_GENS, SYMM_GROUPS, TOTAL_CONSTR, REG_CONSTR, BIN_CONSTR, MATRICES, ROW_SWAPS"  >> "$results"/"$filename"_result.csv
 
 writeback() {
-  echo "${filename}_${1}, $RUNTIME, $STATUS, $FOUND_OPT, $SYMM_GENS, $SYMM_GROUPS, $TOTAL_CONSTR, $REG_CONSTR, $BIN_CONSTR, $MATRICES, $ROW_SWAPS"  >> "$results"/"$filename"_result.csv
+  echo "${filename}_${1}, $RUNTIME s, $STATUS, $FOUND_OPT, $SYMM_GENS, $SYMM_GROUPS, $TOTAL_CONSTR, $REG_CONSTR, $BIN_CONSTR, $MATRICES, $ROW_SWAPS"  >> "$results"/"$filename"_result.csv
   RUNTIME="NA"
   STATUS="NA"
   FOUND_OPT="NA"
@@ -110,7 +110,7 @@ for i in "${!ALLCONFIGS[@]}"; do
 
   timeout $TIMEOUT_SOLVER cat $TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb | ./roundingsat 1>$TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt
   FOUND_OPT=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
-  RUNTIME=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.][0-9]{1,}');
+  RUNTIME=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.]?[0-9]?{1,}');
   STATUS=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^s ' | grep -Po 's\s\K.*')
 
 
