@@ -6,9 +6,6 @@
 #SBATCH --partition=skylake
 #SBATCH --mem-per-cpu=6144
 
-echo "$SLURM_JOB_NAME"
-echo "$SLURM_NTASKS"
-
 module purge
 module load parallel/20210622-GCCcore-10.3.0
 module load CMake/3.20.1-GCCcore-10.3.0
@@ -30,7 +27,7 @@ do
 done
 
 srun="srun -N1 -n1 -c1 --exclusive"
-parallel="parallel -j $SLURM_NTASKS"
-echo $parallel
-#$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
-#wait
+parallel="parallel -j 3"
+
+$parallel "$srun" ::: $(ls -1 ./running_scripts/*sh)
+wait
