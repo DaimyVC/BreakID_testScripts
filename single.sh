@@ -14,6 +14,7 @@ filename=FILENAME
 extension="${filename##*.}"
 filename="${filename%.*}"
 results=$VSC_DATA/results
+home=$VSC_DATA/BreakID_testScripts
 
 TIMEOUT_SOLVER=TIME_L
 TIMEOUT_BREAKID=$(echo 10*$TIMEOUT_SOLVER / 1 | bc)
@@ -68,7 +69,7 @@ ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12")
 
 ##BASE CASE, NO SYMM BREAKING
-timeout $TIMEOUT_SOLVER cat $instances/${filename}.${extension} | ./roundingsat 1>$TMPDIR/${filename}.txt
+timeout $TIMEOUT_SOLVER cat $instances/${filename}.${extension} | $home/roundingsat 1>$TMPDIR/${filename}.txt
 
 FOUND_OPT=$(cat $TMPDIR/${filename}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
 RUNTIME=$(cat $TMPDIR/${filename}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.]?[0-9]?{1,}');
@@ -98,7 +99,7 @@ writeback() {
 writeback $CONFIG0
 
 for i in "${!ALLCONFIGS[@]}"; do
-  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | ./BreakID ${ALLARGS[$i]} -v 7 2>$TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt 1>$TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb
+  timeout $TIMEOUT_BREAKID cat $instances/${filename}.${extension} | $home/BreakID ${ALLARGS[$i]} -v 7 2>$TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt 1>$TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb
 
   SYMM_GENS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** symmetry generators detected:' | grep -Eo '[0-9]{1,}')
   SYMM_GROUPS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** subgroups detected:' | grep -Eo '[0-9]{1,}')
@@ -108,7 +109,7 @@ for i in "${!ALLCONFIGS[@]}"; do
   MATRICES=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** matrices detected:' | grep -Eo '[0-9]{1,}')
   ROW_SWAPS=$(cat $TMPDIR/${filename}_breakinfo_${ALLCONFIGS[$i]}.txt | grep '**** row swaps detected:' | grep -Eo '[0-9]{1,}')
 
-  timeout $TIMEOUT_SOLVER cat $TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb | ./roundingsat 1>$TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt
+  timeout $TIMEOUT_SOLVER cat $TMPDIR/${filename}_opb_${ALLCONFIGS[$i]}.opb | $home/roundingsat 1>$TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt
   FOUND_OPT=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^o ' | grep -Eo '[+-]?[0-9]{1,}');
   RUNTIME=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep 'cpu time ' | grep -Eo '[0-9]{1,}[.]?[0-9]?{1,}');
   STATUS=$(cat $TMPDIR/${filename}_${ALLCONFIGS[$i]}.txt | grep '^s ' | grep -Po 's\s\K.*')
