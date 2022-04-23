@@ -1,10 +1,10 @@
 #!/bin/bash
 #
 #SBATCH --job-name=make_scripts
-#SBATCH --time=03:00:00
+#SBATCH --time=04:00:00
 #SBATCH --ntasks=20
 #SBATCH --partition=skylake
-#SBATCH --mem-per-cpu=16g
+#SBATCH --mem-per-cpu=4g
 
 module purge
 module load parallel/20210622-GCCcore-10.3.0
@@ -71,7 +71,7 @@ do
             sed -i "s/INSTANCES/$instances_escaped/g" $script/${filename}_solve.sh
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_solve.sh
             chmod +x $script/${filename}_solve.sh
-            srun --job-name=${filename}_${config}_solve --mem-per-cpu=16g --time=1800 -N1 -n1 --partition=skylake --exclusive $script/${filename}_solve.sh
+            srun --job-name=${filename}_${config}_solve --time=2000 -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh
             
         else
             sed "s/FILENAME/$filename/g" $home/singleBreak.sh > $script/${filename}_break.sh
@@ -79,13 +79,15 @@ do
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_break.sh
             sed -i "s/ARGS/${ALLARGS[$i]}/g" $script/${filename}_break.sh
             chmod +x $script/${filename}_break.sh
-            jid=$(srun --job-name=${filename}_${config}_solve --mem-per-cpu=16g --time=1800 -N1 -n1 --partition=skylake --exclusive $script/${filename}_break.sh)
+            jid=$(srun --job-name=${filename}_${config}_solve --time=200 -N1 -n1 -c1 --exclusive $script/${filename}_break.sh)
 
             sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $script/${filename}_solve.sh
             sed -i "s/INSTANCES/$instances_escaped/g" $script/${filename}_solve.sh
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_solve.sh
             chmod +x $script/${filename}_solve.sh
-            srun --job-name=${filename}_${config}_break --mem-per-cpu=16g --dependency=afterok:$jid --partition=skylake --time=200 -N1 -n1 --exclusive $script/${filename}_solve.sh
+            srun --job-name=${filename}_${config}_break --time=1800 --dependency=afterok:$jid -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh
         fi
     done
 done
+
+wait
