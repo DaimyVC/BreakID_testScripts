@@ -8,7 +8,7 @@ module load Boost/1.76.0-GCC-10.3.0
 cd ../..
 
 TMPDIR=$VSC_SCRATCH
-results=$VSC_DATA/results/breakid
+results=$VSC_DATA/BreakID_testScripts/results/breakid
 home=$VSC_DATA/BreakID_testScripts
 
 instances=INSTANCES

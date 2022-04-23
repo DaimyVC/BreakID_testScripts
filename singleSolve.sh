@@ -8,7 +8,7 @@
 cd ../..
 
 TMPDIR=$VSC_SCRATCH
-results=$VSC_DATA/results/roundingsat
+results=$VSC_DATA/BreakID_testScripts/results/roundingsat
 home=$VSC_DATA/BreakID_testScripts
 
 instances=INSTANCES
