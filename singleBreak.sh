@@ -34,7 +34,7 @@ ROW_SWAPS="NA"
 OUTPUT_CODE_BREAKID="NA" ##TOE TE VOEGEN
   
 
-{ time cat $instances/${filename}.${extension} | $home/BreakID $arguments -v 1 -t 100 -s 100 2>$TMPDIR/${filename}_${config}_breakinfo.txt 1>$TMPDIR/${filename}_${config}_opb.opb ; } 2>$TMPDIR/${filename}_${config}_brtime.txt
+{ time cat $instances/${filename}.${extension} | $home/BreakID $arguments -v 1 -t 300 -s 100 2>$TMPDIR/${filename}_${config}_breakinfo.txt 1>$TMPDIR/${filename}_${config}_opb.opb ; } 2>$TMPDIR/${filename}_${config}_brtime.txt
 
 RUNTIME_BREAKID=$(grep 'real' $TMPDIR/${filename}_${config}_brtime.txt | grep -Eo '[0-9]{1,}[m][0-9]{1,}[.][0-9]{1,}')
 SYMM_GENS=$(grep '**** symmetry generators detected:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
