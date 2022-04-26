@@ -53,7 +53,6 @@ instances=$VSC_SCRATCH/instances2011
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/running_scripts
-mkdir $home/tmp
 mkdir $home/results
 mkdir $home/results/roundingsat
 mkdir $home/results/breakid
@@ -91,3 +90,7 @@ do
 done
 
 wait
+
+rm -r $home/running_scripts
+rm -r $VSC_SCRATCH *.opb
+rm -r $VSC_SCRAT *.txt
