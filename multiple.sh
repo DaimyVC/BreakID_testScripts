@@ -71,7 +71,7 @@ do
             sed -i "s/INSTANCES/$instances_escaped/g" $script/${filename}_solve.sh
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_solve.sh
             chmod +x $script/${filename}_solve.sh
-            srun --job-name=${filename}_${config}_solve --time=3600 -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh &
+            sbatch --job-name=${filename}_${config}_solve --time=00:3600 -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh &
             
         else
             sed "s/FILENAME/$filename/g" $home/singleBreak.sh > $script/${filename}_break.sh
@@ -79,13 +79,13 @@ do
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_break.sh
             sed -i "s/ARGS/${ALLARGS[$i]}/g" $script/${filename}_break.sh
             chmod +x $script/${filename}_break.sh
-            jid=$(srun --job-name=${filename}_${config}_solve --time=360 -N1 -n1 -c1 --exclusive $script/${filename}_break.sh &)
+            jid=$(sbatch --job-name=${filename}_${config}_solve --time=00:360 -N1 -n1 -c1 --exclusive $script/${filename}_break.sh &)
 
             sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $script/${filename}_solve.sh
             sed -i "s/INSTANCES/$instances_escaped/g" $script/${filename}_solve.sh
             sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $script/${filename}_solve.sh
             chmod +x $script/${filename}_solve.sh
-            srun --job-name=${filename}_${config}_break --time=3240 --dependency=afterok:$jid -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh &
+            sbtach --job-name=${filename}_${config}_break --time=00:3240 --dependency=afterok:$jid -N1 -n1 -c1 --exclusive $script/${filename}_solve.sh &
         fi
     done
 done
