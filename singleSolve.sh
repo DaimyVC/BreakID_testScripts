@@ -86,6 +86,3 @@ else
 
   writeback $config
 fi
-
-cd $VSC_SCRATCH
-rm *.txt
