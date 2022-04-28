@@ -72,7 +72,3 @@ echo "total auxiliary variables added: $TOTAL_VARS_ADDED"
 echo "total runtime BreakID: $RUNTIME_BREAKID"
 
 echo "${filename}, ${config}, $RUNTIME_BREAKID, $TOTAL_CONSTR_BEGIN, $TOTAL_VARS_BEGIN, $SYMM_GENS, $SYMM_GROUPS, $MATRICES, $ROW_SWAPS, $REG_CONSTR_ADDED, $BIN_CONSTR_ADDED, $ROW_CONSTR_ADDED, $TOTAL_VARS_ADDED, $TOTAL_CONSTR_ADDED"   >> "$results"/"$filename"_"$config"_result.csv
-
-cd $VSC_SCRATCH
-rm *.opb
-rm *.txt
