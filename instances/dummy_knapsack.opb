@@ -1,0 +1,4 @@
+* #variable= 3 #constraint= 1
+*
+min: -60 x1 -100 x2 -120 x3
+-10 x1 -20 x2 -30 x3 >= -50

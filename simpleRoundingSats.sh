@@ -12,7 +12,7 @@ mkdir $home/results/breakid
 mkdir $home/running_scripts/
 scripts=$home/running_scripts/
 
-for filename in $(ls "$instances") do
+for filename in $(ls "$instances"); do
     sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}.sh
     sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}.sh
     sed -i "s/CONFIG/$config/g" $scripts/${filename}.sh
