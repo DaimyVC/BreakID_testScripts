@@ -38,9 +38,8 @@ A12="$WEAKSYMM $LONGPB $NORELAX"
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8" "$CONFIG9" "$CONFIG10" "$CONFIG11" "$CONFIG12")
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12")
 
-rm -r $home/running_scripts
-mkdir $home/running_scripts/
-scripts=$home/running_scripts/
+mkdir $home/running_scripts_break/
+scripts=$home/running_scripts_break/
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do
@@ -49,6 +48,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sbatch $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
+        sbatch --jobname=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
     done
 done
