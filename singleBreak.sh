@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+#SBATCH --job-name=single_break
+#SBATCH --time=00:00:30
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --partition=skylake
+#SBATCH --mem-per-cpu=16g
 
 module purge
 module load CMake/3.20.1-GCCcore-10.3.0
@@ -65,3 +72,7 @@ echo "total auxiliary variables added: $TOTAL_VARS_ADDED"
 echo "total runtime BreakID: $RUNTIME_BREAKID"
 
 echo "${filename}, ${config}, $RUNTIME_BREAKID, $TOTAL_CONSTR_BEGIN, $TOTAL_VARS_BEGIN, $SYMM_GENS, $SYMM_GROUPS, $MATRICES, $ROW_SWAPS, $REG_CONSTR_ADDED, $BIN_CONSTR_ADDED, $ROW_CONSTR_ADDED, $TOTAL_VARS_ADDED, $TOTAL_CONSTR_ADDED"   >> "$results"/"$filename"_"$config"_result.csv
+
+cd $VSC_SCRATCH
+rm *.opb
+rm *.txt
