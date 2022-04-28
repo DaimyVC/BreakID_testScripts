@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=single_solve
-#SBATCH --time=00:01:00
+#SBATCH --time=01:00:00
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
 #SBATCH --partition=skylake
