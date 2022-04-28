@@ -42,7 +42,7 @@ rm -r $home/running_scripts
 mkdir $home/running_scripts/
 scripts=$home/running_scripts/
 
-for filename in $(ls "$instances")
+for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do
         sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
