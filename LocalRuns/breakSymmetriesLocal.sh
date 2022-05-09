@@ -1,7 +1,8 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/instances15/OPT-SMALLINT-LIN
+VSC_SCRATCH="$home"/tmp
+instances=$home/instances
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 SHORTPB="-pb 0"
@@ -43,7 +44,7 @@ scripts=$home/running_scripts_break/
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do
-        sed "s/FILENAME/$filename/g" $home/singleBreak.sh > $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
+        sed "s/FILENAME/$filename/g" $home/singleBreakLocal.sh > $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
