@@ -1,9 +1,8 @@
 #!/bin/bash
 
-#cd $VSC_SCRATCH
-cd
+cd $VSC_SCRATCH
 
-#wget http://www.cril.univ-artois.fr/PB16/bench/PB16-used.tar
+wget http://www.cril.univ-artois.fr/PB16/bench/PB16-used.tar
 
 tar -xvf PB16-used.tar
 
@@ -31,7 +30,7 @@ rm -r PB15eval
 mv PB16/normalized-PB16/ instances16
 rm -r PB16
 
-#rm PB16-used.tar
+rm PB16-used.tar
 
 for dir in instances*/ ; do
     find "$dir" -type d -name *NLC* -exec rm -rf {} \;
