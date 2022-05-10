@@ -37,6 +37,7 @@ writeback() {
   RUNTIME_ROUNDINGSAT="NA"
   STATUS="NA"
   OUTPUT_CODE_ROUNDINGSAT="NA"
+}
 
 if [ "$config" = "no_symm_breaking" ]
 then
