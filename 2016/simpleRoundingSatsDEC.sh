@@ -2,7 +2,7 @@
 
 cd ..
 home=$(pwd)
-instances=$VSC_SCRATCH/instances16/SATUNSAT-SMALLINT-LIN
+instances=$VSC_SCRATCH/instances16/DEC-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config="no_symm_breaking"
 
