@@ -1,10 +1,11 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/instances15/OPT-SMALLINT-LIN
+instances=$VSC_SCRATCH/instances16/OPT-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 SHORTPB="-pb 0"
+MEDPB="-pb 10"
 LONGPB="-pb 28"
 NOOPT="-no-bin -no-small -no-row"
 WEAKSYMM="-ws"
@@ -14,29 +15,37 @@ CONFIG1="strongsymm_shortpbconstr_noopt"
 A1="$SHORTPB $NOOPT"
 CONFIG2="strongsymm_shortpbconstr_opt"
 A2="$SHORTPB"
+
+CONFIG1="strongsymm_medpbconstr_noopt"
+A1="$SHORTPB $NOOPT"
+CONFIG2="strongsymm_medpbconstr_opt"
+A2="$SHORTPB"
+
 CONFIG3="strongsymm_longpbconstr_noopt"
 A3="$LONGPB $NOOPT"
 CONFIG4="strongsymm_longpbconstr_opt"
 A4="$LONGPB"
-# CONFIG5="weaksymm_shortpbconstr_noopt_relaxed"
-# A5="$WEAKSYMM $SHORTPB $NOOPT"
-# CONFIG6="weaksymm_shortpbconstr_noopt_notrelaxed"
-# A6="$WEAKSYMM $SHORTPB $NOOPT $NORELAX"
-# CONFIG7="weaksymm_shortpbconst_opt_relaxed"
-# A7="$WEAKSYMM $SHORTPB"
-# CONFIG8="weaksymm_shortpbconst_opt_notrelaxed"
-# A8="$WEAKSYMM $SHORTPB $NORELAX"
-# CONFIG9="weaksymm_longpbconstr_noopt_relaxed"
-# A9="$WEAKSYMM $LONGPB $NOOPT"
-# CONFIG10="weaksymm_longpbconstr_noopt_notrelaxed"
-# A10="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
-# CONFIG11="weaksymm_longpbconstr_opt_relaxed"
-# A11="$WEAKSYMM $LONGPB"
-# CONFIG12="weaksymm_longpbconstr_opt_notrelaxed"
-# A12="$WEAKSYMM $LONGPB $NORELAX"
 
-ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4")
-ALLARGS=("$A1" "$A2" "$A3" "$A4")
+CONFIG5="weaksymm_shortpbconstr_noopt_relaxed"
+A5="$WEAKSYMM $SHORTPB $NOOPT"
+CONFIG6="weaksymm_shortpbconstr_noopt_notrelaxed"
+A6="$WEAKSYMM $SHORTPB $NOOPT $NORELAX"
+CONFIG7="weaksymm_shortpbconst_opt_relaxed"
+A7="$WEAKSYMM $SHORTPB"
+CONFIG8="weaksymm_shortpbconst_opt_notrelaxed"
+A8="$WEAKSYMM $SHORTPB $NORELAX"
+
+CONFIG9="weaksymm_longpbconstr_noopt_relaxed"
+A9="$WEAKSYMM $LONGPB $NOOPT"
+CONFIG10="weaksymm_longpbconstr_noopt_notrelaxed"
+A10="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
+CONFIG11="weaksymm_longpbconstr_opt_relaxed"
+A11="$WEAKSYMM $LONGPB"
+CONFIG12="weaksymm_longpbconstr_opt_notrelaxed"
+A12="$WEAKSYMM $LONGPB $NORELAX"
+
+ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8" "$CONFIG9" "$CONFIG10" "$CONFIG11" "$CONFIG12")
+ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12")
 
 mkdir $home/running_scripts_solve/
 scripts=$home/running_scripts_solve/

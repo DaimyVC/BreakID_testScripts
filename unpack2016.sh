@@ -12,7 +12,7 @@ rm -r PB06
 mv PB07/normalized-PB07/ instances07
 rm -r PB07
 
-mv PB09//normalized-PB09/ instances09
+mv PB09/normalized-PB09/ instances09
 rm -r PB09
 
 mv PB10/normalized-PB10/ instances10
