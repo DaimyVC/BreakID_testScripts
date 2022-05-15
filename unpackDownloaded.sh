@@ -2,7 +2,7 @@
 
 cd $VSC_SCRATCH
 
-tar -xvf ALL.tar
+tar -xvf all_instances.tar.gz
 
 rm ALL.tar
 

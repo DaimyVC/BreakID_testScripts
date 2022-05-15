@@ -1,7 +1,8 @@
 #!/bin/bash
 
+cd ..
 home=$(pwd)
-instances=$VSC_SCRATCH/instances16/OPT-SMALLINT-LIN
+instances=$VSC_SCRATCH/instances16/SATUNSAT-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 SHORTPB="-pb 0"
