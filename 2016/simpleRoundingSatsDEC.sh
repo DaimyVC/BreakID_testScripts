@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd ..
 home=$(pwd)
 instances=$VSC_SCRATCH/instances16/SATUNSAT-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
