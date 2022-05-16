@@ -45,13 +45,13 @@ CONFIG14="strongsymm_medpbconstr_opt"
 A14="$MEDPB"
 
 CONFIG15="weaksymm_medpbconstr_noopt_relaxed"
-A5="$WEAKSYMM $MEDPB $NOOPT"
+A15="$WEAKSYMM $MEDPB $NOOPT"
 CONFIG16="weaksymm_medpbconstr_noopt_notrelaxed"
-A6="$WEAKSYMM $MEDPB $NOOPT $NORELAX"
+A16="$WEAKSYMM $MEDPB $NOOPT $NORELAX"
 CONFIG17="weaksymm_medpbconstr_opt_relaxed"
-A7="$WEAKSYMM $MEDPB"
+A17="$WEAKSYMM $MEDPB"
 CONFIG18="weaksymm_medpbconstr_opt_notrelaxed"
-A8="$WEAKSYMM $MEDPB $NORELAX"
+A18="$WEAKSYMM $MEDPB $NORELAX"
 
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8" "$CONFIG9" "$CONFIG10" "$CONFIG11" "$CONFIG12" "$CONFIG13" "$CONFIG14" "$CONFIG15" "$CONFIG16" "$CONFIG17" "$CONFIG18")
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12" "$A13" "$A14" "$A15" "$A16" "$A17" "$A18")
