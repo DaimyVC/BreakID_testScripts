@@ -77,3 +77,6 @@ echo "total auxiliary variables added: $TOTAL_VARS_ADDED"
 echo "total runtime BreakID: $RUNTIME_BREAKID"
 
 echo "${filename}, ${config}, $RUNTIME_BREAKID, $TOTAL_CONSTR_BEGIN, $TOTAL_VARS_BEGIN, $TOTAL_SYMM_GENS, $STRONG_SYMM_GENS, $WEAK_SYMM_GENS, $SYMM_GROUPS, $MATRICES, $ROW_SWAPS, $REG_CONSTR_ADDED, $BIN_CONSTR_ADDED, $ROW_CONSTR_ADDED, $TOTAL_VARS_ADDED, $TOTAL_CONSTR_ADDED, $OUTPUT_CODE_BREAKID"   >> "$results"/"$filename"_"$config"_result.csv
+
+rm $TMPDIR/${filename}_${config}_breakinfo.txt
+rm $TMPDIR/${filename}_${config}_brtime.txt

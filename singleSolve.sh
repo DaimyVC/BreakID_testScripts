@@ -57,6 +57,9 @@ then
 
   writeback $config
 
+  rm $TMPDIR/${filename}_${config}_rs.txt
+  rm $TMPDIR/${filename}_${config}_rstime.txt
+
 else
   { time cat $TMPDIR/${filename}_${config}_opb.opb | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
   
@@ -71,4 +74,8 @@ else
   echo "total runtime Roundingsat: $RUNTIME_ROUNDINGSAT"
 
   writeback $config
+
+  rm $TMPDIR/${filename}_${config}_rs.txt
+  rm $TMPDIR/${filename}_${config}_rstime.txt
+  rm $TMPDIR/${filename}_${config}_opb.opb
 fi
