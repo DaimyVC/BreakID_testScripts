@@ -1,7 +1,7 @@
 #!/bin/bash
 
 module purge
-module load make/4.3-GCCcore-10.3.0
+module load GCC/10.3.0
 
 ROOT_DIR=$(pwd)
 
