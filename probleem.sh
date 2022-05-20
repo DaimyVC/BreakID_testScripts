@@ -1,4 +1,11 @@
 #!/bin/bash
+#
+#SBATCH --job-name=single_break
+#SBATCH --time=00:10:00
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --partition=skylake
+#SBATCH --mem-per-cpu=16g
 
 ROOT_DIR=$(pwd)
 scratch=$VSC_SCRATCH
