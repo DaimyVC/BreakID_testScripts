@@ -27,7 +27,7 @@ extension="${filename##*.}"
 filename="${filename%.*}"
 
 RUNTIME_BREAKID="NA"
-TOTAL_SYMM_GENS="NA" ##
+TOTAL_SYMM_GENS="NA"
 STRONG_SYMM_GENS="NA"
 WEAK_SYMM_GENS="NA"
 SYMM_GROUPS="NA"
