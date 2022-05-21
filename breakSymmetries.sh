@@ -1,7 +1,7 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/instances16/DEC-SMALLINT-LIN
+instances=$VSC_SCRATCH/instances15/OPT-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/results_breakid
