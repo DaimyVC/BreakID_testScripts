@@ -7,11 +7,6 @@
 #SBATCH --partition=skylake
 #SBATCH --mem-per-cpu=16g
 
-module purge
-module load CMake/3.20.1-GCCcore-10.3.0
-module load make/4.3-GCCcore-10.3.0
-module load Boost/1.76.0-GCC-10.3.0
-
 cd ../..
 
 TMPDIR=$VSC_SCRATCH
@@ -22,6 +17,7 @@ instances=INSTANCES
 filename=FILENAME
 config=CONFIG
 arguments="ARGS"
+results=RESULTS
 
 extension="${filename##*.}"
 filename="${filename%.*}"

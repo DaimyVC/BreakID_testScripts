@@ -6,7 +6,6 @@ instances=$VSC_SCRATCH/instances16/DEC-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 SHORTPB="-pb 0"
-MEDPB="-pb 7"
 LONGPB="-pb 28"
 NOOPT="-no-bin -no-small -no-row"
 WEAKSYMM="-ws"
@@ -54,8 +53,8 @@ A7="$WEAKSYMM $MEDPB"
 CONFIG18="weaksymm_medpbconstr_opt_notrelaxed"
 A8="$WEAKSYMM $MEDPB $NORELAX"
 
-ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8" "$CONFIG9" "$CONFIG10" "$CONFIG11" "$CONFIG12" "$CONFIG13" "$CONFIG14" "$CONFIG15" "$CONFIG16" "$CONFIG17" "$CONFIG18")
-ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12" "$A13" "$A14" "$A15" "$A16" "$A17" "$A18")
+ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8" "$CONFIG9" "$CONFIG10" "$CONFIG11" "$CONFIG12")
+ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8" "$A9" "$A10" "$A11" "$A12")
 
 mkdir $home/running_scripts_solve/
 scripts=$home/running_scripts_solve/

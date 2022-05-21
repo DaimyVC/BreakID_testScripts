@@ -1,7 +1,7 @@
 #!/bin/bash
 
 module purge
-module load GCC/10.3.0
+module load GCC/9.3.0
 
 ROOT_DIR=$(pwd)
 
