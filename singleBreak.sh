@@ -10,14 +10,13 @@
 cd ../..
 
 TMPDIR=$VSC_SCRATCH
-results=$VSC_DATA/BreakID_testScripts/results/breakid
 home=$VSC_DATA/BreakID_testScripts
+results=$home/results_breakid
 
 instances=INSTANCES
 filename=FILENAME
 config=CONFIG
 arguments="ARGS"
-results=RESULTS
 
 extension="${filename##*.}"
 filename="${filename%.*}"

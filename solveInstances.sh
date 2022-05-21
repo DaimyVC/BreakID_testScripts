@@ -5,8 +5,8 @@ instances=$VSC_SCRATCH/instances16/OPT-SMALLINT-LIN
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config0="no_symm_breaking"
 
-mkdir $home/results_roundingsat16_OPT
-results=$home/results_roundingsat16_OPT
+mkdir $home/results_roundingsat
+results=$home/results_roundingsat
 
 mkdir $home/running_scripts/
 scripts=$home/running_scripts/
@@ -33,7 +33,6 @@ for filename in $(ls "$instances"); do
     sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}.sh
     sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}.sh
     sed -i "s/CONFIG/$config0/g" $scripts/${filename}.sh
-    sed -i "s/RESULTS/$results/g" $scripts/${filename}.sh
     chmod +x $scripts/${filename}.sh
     sbatch --job-name=${filename}_simpleSolve $scripts/${filename}.sh &
 done
@@ -43,7 +42,6 @@ for filename in $(ls "$instances"); do
         sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
-        sed -i "s/RESULTS/$results/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh &
     done

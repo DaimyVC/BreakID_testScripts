@@ -10,8 +10,8 @@
 cd ..
 
 TMPDIR=$VSC_SCRATCH
-results=RESULTS
 home=$VSC_DATA/BreakID_testScripts
+results=$home/results_roundingsat
 
 instances=INSTANCES
 filename=FILENAME
