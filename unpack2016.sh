@@ -61,14 +61,21 @@ for dir in instances*/ ; do
     done
 done
 
+mkdir inst-OPT
+mkdir inst-DEC
+
 for dir in instances*/ ; do
+    find "$dir" -type f -name '*OPT*' -exec mv -i {} inst-OPT/  \;
+    find "$dir" -type f -name '*DEC*' -exec mv -i {} inst-DEC/  \;
+    find "$dir" -type f -name '*SATUNSAT*' -exec mv -i {} inst-DEC/  \;
+done
+
+
+for dir in inst-*/ ; do
     dir=${dir%*/}
-    for family in "$dir"/*/ ; do
-        family=${family%*/}
-        for instance in "$family"/*.bz2 ; do
-            echo $instance
-            bzip2 -d "$instance"
-        done
+    for instance in "$dir"/*.bz2 ; do
+        echo $instance
+        bzip2 -d "$instance"
     done
 done
 
