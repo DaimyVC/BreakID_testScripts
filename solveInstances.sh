@@ -43,6 +43,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
-        sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh &
+        sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} --output=$VSC_SCRATCH/slurm_out/slurm-%j.out --error=$VSC_SCRATCH/slurm_out/slurm-%j.out $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh &
     done
 done

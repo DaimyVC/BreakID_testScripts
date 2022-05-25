@@ -35,6 +35,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
+        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} --output=$VSC_SCRATCH/slurm_out/slurm-%j.out --error=$VSC_SCRATCH/slurm_out/slurm-%j.out $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
     done
 done
