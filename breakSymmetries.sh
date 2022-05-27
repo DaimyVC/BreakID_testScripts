@@ -20,10 +20,12 @@ CONFIG3="weaksymm_shortpb_opt"
 A3="$WEAKSYMM $SHORTPB $NORELAX"
 CONFIG4="weaksymm_longpb_opt"
 A4="$WEAKSYMM $LONGPB $NORELAX"
+CONFIG5="weaksymm_longpb_noopt"
+A5="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
 
 
-ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4")
-ALLARGS=("$A1" "$A2" "$A3" "$A4")
+ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5")
+ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5")
 
 mkdir $home/running_scripts_break/
 scripts=$home/running_scripts_break/
@@ -35,6 +37,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} --output=$VSC_SCRATCH/slurm_out/slurm-%j.out --error=$VSC_SCRATCH/slurm_out/slurm-%j.out $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
+        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
     done
 done

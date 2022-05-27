@@ -5,7 +5,6 @@ instances=$VSC_SCRATCH/inst-OPT
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config0="no_symm_breaking"
 
-mkdir $home/results_roundingsat
 results=$home/results_roundingsat
 
 mkdir $home/running_scripts/
@@ -25,17 +24,12 @@ CONFIG3="weaksymm_shortpb_opt"
 A3="$WEAKSYMM $SHORTPB $NORELAX"
 CONFIG4="weaksymm_longpb_opt"
 A4="$WEAKSYMM $LONGPB $NORELAX"
+CONFIG5="weaksymm_longpb_noopt"
+A5="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
 
-ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4")
-ALLARGS=("$A1" "$A2" "$A3" "$A4")
 
-for filename in $(ls "$instances"); do
-    sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}.sh
-    sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}.sh
-    sed -i "s/CONFIG/$config0/g" $scripts/${filename}.sh
-    chmod +x $scripts/${filename}.sh
-    sbatch --job-name=${filename}_simpleSolve $scripts/${filename}.sh &
-done
+ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5")
+ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5")
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do
@@ -43,6 +37,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
-        sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} --output=$VSC_SCRATCH/slurm_out/slurm-%j.out --error=$VSC_SCRATCH/slurm_out/slurm-%j.out $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh &
+        sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh &
     done
 done
