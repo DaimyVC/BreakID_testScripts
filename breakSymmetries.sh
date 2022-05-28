@@ -1,7 +1,11 @@
 #!/bin/bash
+#SBATCH --job-name=myjob
+#SBATCH --time=04:00:00
+#SBATCH --ntasks=20
+
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst-OPT
+instances=$VSC_SCRATCH/inst-test
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/results_breakid
@@ -37,6 +41,8 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
+        #sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
     done
 done
+
+parallel -j $SLURM_NTASKS srun -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst-OPT
+instances=$VSC_SCRATCH/inst-06
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config0="no_symm_breaking"
 
