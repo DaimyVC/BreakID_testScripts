@@ -1,14 +1,14 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst-06
+instances=$VSC_SCRATCH/inst15
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config0="no_symm_breaking"
 
 results=$home/results_roundingsat
 
-mkdir $home/running_scripts/
-scripts=$home/running_scripts/
+mkdir $home/running_scripts15/
+scripts=$home/running_scripts15/
 
 SHORTPB="-pb 0"
 LONGPB="-pb 28"

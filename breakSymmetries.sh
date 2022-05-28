@@ -1,11 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=myjob
-#SBATCH --time=04:00:00
-#SBATCH --ntasks=20
-
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst-test
+instances=$VSC_SCRATCH/inst15
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/results_breakid
@@ -31,8 +27,8 @@ A5="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5")
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5")
 
-mkdir $home/running_scripts_break/
-scripts=$home/running_scripts_break/
+mkdir $home/running_scripts_break15/
+scripts=$home/running_scripts_break15/
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do
@@ -41,8 +37,6 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        #sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
+        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh &
     done
 done
-
-parallel -j $SLURM_NTASKS srun -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh
