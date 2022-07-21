@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=single_solve
+#SBATCH --job-name=single_solveNS
 #SBATCH --time=01:00:00
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
@@ -15,7 +15,7 @@ cd ..
 
 TMPDIR=$VSC_SCRATCH
 home=$VSC_DATA/BreakID_testScripts
-results=$home/results_roundingsat
+results=$home/results_roundingsat_NS
 
 instances=INSTANCES
 filename=FILENAME
@@ -23,6 +23,7 @@ config=CONFIG
 
 extension="${filename##*.}"
 filename="${filename%.*}"
+
 
 FOUND_OPT="NA"
 RUNTIME_ROUNDINGSAT="NA"
