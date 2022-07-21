@@ -41,8 +41,7 @@ writeback() {
   OUTPUT_CODE_ROUNDINGSAT="NA"
 }
 
-if [ "$config" = "no_symm_breaking" ]
-then
+
   ##BASE CASE, NO SYMM BREAKING
   { time cat $instances/${filename}.${extension} | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
   
@@ -63,25 +62,3 @@ then
 
   rm $TMPDIR/${filename}_${config}_rs.txt
   rm $TMPDIR/${filename}_${config}_rstime.txt
-
-else
-  { time cat $TMPDIR/${filename}_${config}_opb.opb | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
-  
-  OUTPUT_CODE_ROUNDINGSAT=$(echo $?)
-  FOUND_OPT=$(grep '^o ' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[+-]?[0-9]{1,}')
-  RUNTIME_ROUNDINGSAT=$(grep 'real' $TMPDIR/${filename}_${config}_rstime.txt | grep -Eo '[0-9]{1,}[m][0-9]{1,}[.][0-9]{1,}')
-  CONFLICTS=$(grep '^c conflicts' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[0-9]{1,}')
-  STATUS=$(grep '^s ' $TMPDIR/${filename}_${config}_rs.txt | grep -Po 's\s\K.*')
-
-  echo "$filename with $config"
-  echo "conflicts: $CONFLICTS"
-  echo "roundingsat status: $STATUS"
-  echo "found optimum: $FOUND_OPT"
-  echo "total runtime Roundingsat: $RUNTIME_ROUNDINGSAT"
-
-  writeback $config
-
-  rm $TMPDIR/${filename}_${config}_rs.txt
-  rm $TMPDIR/${filename}_${config}_rstime.txt
-  rm $TMPDIR/${filename}_${config}_opb.opb
-fi

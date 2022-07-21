@@ -7,27 +7,34 @@ instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 mkdir $home/results_breakid
 
 SHORTPB="-pb 0"
-LONGPB="-pb 8"
+LONGPB="-pb 16"
 NOOPT="-no-bin -no-small -no-row"
 WEAKSYMM="-ws"
 NORELAX="-no-relaxed"
 
 CONFIG1="strongsymm_shortpb_noopt"
 A1="$SHORTPB $NOOPT $NORELAX"
+
 CONFIG2="strongsymm_shortpb_opt"
 A2="$SHORTPB $NORELAX"
-CONFIG3="weaksymm_shortpb_opt"
-A3="$WEAKSYMM $SHORTPB $NORELAX"
-CONFIG4="weaksymm_longpb_opt"
-A4="$WEAKSYMM $LONGPB $NORELAX"
-CONFIG5="weaksymm_longpb_noopt"
-A5="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
-CONFIG6="weaksymm_shortpb_noopt"
-A6="$WEAKSYMM $SHORTPB $NOOPT $NORELAX"
-CONFIG7="strongsymm_longpb_noopt"
-A7="$LONGGPB $NOOPT $NORELAX"
-CONFIG8="strongsymm_longpb_opt"
-A8="$LONGPB $NORELAX"
+
+CONFIG3="strongsymm_longpb_noopt"
+A3="$LONGPB $NOOPT $NORELAX"
+
+CONFIG4="strongsymm_longpb_opt"
+A4="$LONGPB $NORELAX"
+
+CONFIG5="weaksymm_shortpb_noopt"
+A5="$WEAKSYMM $SHORTPB $NOOPT $NORELAX"
+
+CONFIG6="weaksymm_shortpb_opt"
+A6="$WEAKSYMM $SHORTPB $NORELAX"
+
+CONFIG7="weaksymm_longpb_noopt"
+A7="$WEAKSYMM $LONGPB $NOOPT $NORELAX"
+
+CONFIG8="weaksymm_longpb_opt"
+A8="$WEAKSYMM $LONGPB $NORELAX"
 
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8")
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8")
