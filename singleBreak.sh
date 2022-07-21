@@ -4,7 +4,7 @@
 #SBATCH --time=00:30:00
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
-#SBATCH --partition=skylake
+#SBATCH --partition=skylake,skylake_mpi
 #SBATCH --mem-per-cpu=16g
 
 cd ../..
