@@ -6,3 +6,7 @@ results
 instances2011
 LocalRuns
 all_instances.tar.gz
+*.opb
+*.opb.bz2
+*.tar.gz
+*.tar
