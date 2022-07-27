@@ -45,7 +45,7 @@ TOTAL_SYMM_GENS=$(grep '**** total symmetry generators detected:' $TMPDIR/${file
 STRONG_SYMM_GENS=$(grep '**** strong symmetry generators detected:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
 WEAK_SYMM_GENS=$(grep '**** weak symmetry generators detected:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
 SYMM_GROUPS=$(grep '**** subgroups detected:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
-TOTAL_CONSTR_BEGIN=$(grep '* #variable= ' $instances/${filename}.${extension} | grep -Eo '#constraint= [0-9]{1,}' | grep -Eo '[0-9]{1,}')  #
+TOTAL_CONSTR_BEGIN=$(grep '* #variable= ' $instances/${filename}.${extension} | grep -Eo '#constraint= [0-9]{1,}' | grep -Eo '[0-9]{1,}')
 TOTAL_VARS_BEGIN=$(grep -Eo '* #variable= [0-9]{1,}' $instances/${filename}.${extension} | grep -Eo '[0-9]{1,}')
 REG_CONSTR_ADDED=$(grep '**** regular symmetry breaking clauses added:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
 BIN_CONSTR_ADDED=$(grep '**** extra binary symmetry breaking clauses added:' $TMPDIR/${filename}_${config}_breakinfo.txt | grep -Eo '[0-9]{1,}')
