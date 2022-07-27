@@ -1,14 +1,14 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst06
+instances=$VSC_SCRATCH/06_doubles
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/results_roundingsat
 results=$home/results_roundingsat
 
-mkdir $home/running_scripts06/
-scripts=$home/running_scripts06/
+mkdir $home/running_scripts06d/
+scripts=$home/running_scripts06d/
 
 CONFIG1="strongsymm_shortpb_noopt"
 

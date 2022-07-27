@@ -1,7 +1,7 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst06
+instances=$VSC_SCRATCH/06_doubles
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
 mkdir $home/results_breakid
@@ -39,8 +39,8 @@ A8="$WEAKSYMM $LONGPB $NORELAX"
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8")
 ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8")
 
-mkdir $home/running_scripts_break06/
-scripts=$home/running_scripts_break06/
+mkdir $home/running_scripts_break06d/
+scripts=$home/running_scripts_break06d/
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/inst06
+instances=$VSC_SCRATCH/06_doubles
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 config0="no_symm_breaking"
 
