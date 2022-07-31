@@ -18,15 +18,15 @@ CONFIG3="strongsymm_longpb_noopt"
 
 CONFIG4="strongsymm_longpb_opt"
 
-#CONFIG5="weaksymm_shortpb_noopt"
+CONFIG5="weaksymm_shortpb_noopt"
 
-#CONFIG6="weaksymm_shortpb_opt"
+CONFIG6="weaksymm_shortpb_opt"
 
-#CONFIG7="weaksymm_longpb_noopt"
+CONFIG7="weaksymm_longpb_noopt"
 
-#CONFIG8="weaksymm_longpb_opt"
+CONFIG8="weaksymm_longpb_opt"
 
-ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4")
+ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8")
 
 for filename in $(ls "$instances"); do
     for i in "${!ALLCONFIGS[@]}"; do

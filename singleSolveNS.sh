@@ -42,23 +42,23 @@ writeback() {
 }
 
 
-  ##BASE CASE, NO SYMM BREAKING
-  { time cat $instances/${filename}.${extension} | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
-  
-  OUTPUT_CODE_ROUNDINGSAT=$(echo $?)
-  FOUND_OPT=$(grep '^o ' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[+-]?[0-9]{1,}');
-  STATUS=$(grep '^s ' $TMPDIR/${filename}_${config}_rs.txt | grep -Po 's\s\K.*')
-  CONFLICTS=$(grep '^c conflicts' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[0-9]{1,}')
-  RUNTIME_ROUNDINGSAT=$(grep 'real' $TMPDIR/${filename}_${config}_rstime.txt | grep -Eo '[0-9]{1,}[m][0-9]{1,}[.][0-9]{1,}')
+##BASE CASE, NO SYMM BREAKING
+{ time cat $instances/${filename}.${extension} | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
 
-  echo "$filename $config:"
-  echo "RUNTIME_ROUNDINGSAT: $RUNTIME_ROUNDINGSAT"
-  echo "status: $STATUS"
-  echo "conflicts: $CONFLICTS"
-  echo "found optimum: $FOUND_OPT"
-  echo "output code: $OUTPUT_CODE_ROUNDINGSAT"
+OUTPUT_CODE_ROUNDINGSAT=$(echo $?)
+FOUND_OPT=$(grep '^o ' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[+-]?[0-9]{1,}');
+STATUS=$(grep '^s ' $TMPDIR/${filename}_${config}_rs.txt | grep -Po 's\s\K.*')
+CONFLICTS=$(grep '^c conflicts' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[0-9]{1,}')
+RUNTIME_ROUNDINGSAT=$(grep 'real' $TMPDIR/${filename}_${config}_rstime.txt | grep -Eo '[0-9]{1,}[m][0-9]{1,}[.][0-9]{1,}')
 
-  writeback $config
+echo "$filename $config:"
+echo "RUNTIME_ROUNDINGSAT: $RUNTIME_ROUNDINGSAT"
+echo "status: $STATUS"
+echo "conflicts: $CONFLICTS"
+echo "found optimum: $FOUND_OPT"
+echo "output code: $OUTPUT_CODE_ROUNDINGSAT"
 
-  rm $TMPDIR/${filename}_${config}_rs.txt
-  rm $TMPDIR/${filename}_${config}_rstime.txt
+writeback $config
+
+rm $TMPDIR/${filename}_${config}_rs.txt
+rm $TMPDIR/${filename}_${config}_rstime.txt
