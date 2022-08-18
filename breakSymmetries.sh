@@ -37,7 +37,7 @@ CONFIG8="weaksymm_longpb_opt"
 A8="$WEAKSYMM $LONGPB $NORELAX"
 
 ALLCONFIGS=("$CONFIG1" "$CONFIG2" "$CONFIG3" "$CONFIG4" "$CONFIG5" "$CONFIG6" "$CONFIG7" "$CONFIG8")
-ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7")
+ALLARGS=("$A1" "$A2" "$A3" "$A4" "$A5" "$A6" "$A7" "$A8")
 
 mkdir $home/running_scripts_break06d/
 scripts=$home/running_scripts_break06d/
