@@ -13,10 +13,10 @@ module load GCC/10.3.0
 
 cd ..
 
-TMPDIR=$VSC_SCRATCH
+TMPDIR=$VSC_SCRATCH_VO_USER
 home=$VSC_DATA/BreakID_testScripts
-results=$home/results_roundingsat
 
+results=$home/LOC
 instances=INSTANCES
 filename=FILENAME
 config=CONFIG
@@ -58,4 +58,4 @@ writeback $config
 
 rm $TMPDIR/${filename}_${config}_rs.txt
 rm $TMPDIR/${filename}_${config}_rstime.txt
-#rm $TMPDIR/${filename}_${config}_opb.opb
+rm $TMPDIR/${filename}_${config}_opb.opb

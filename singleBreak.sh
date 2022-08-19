@@ -9,10 +9,10 @@
 
 cd ../..
 
-TMPDIR=$VSC_SCRATCH
+TMPDIR=$VSC_SCRATCH_VO_USER
 home=$VSC_DATA/BreakID_testScripts
-results=$home/results_breakid
 
+results=$home/LOC
 instances=INSTANCES
 filename=FILENAME
 config=CONFIG

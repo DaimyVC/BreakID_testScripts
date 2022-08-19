@@ -1,14 +1,14 @@
 #!/bin/bash
 
 home=$(pwd)
-instances=$VSC_SCRATCH/06_doubles
+bench=PROOF
+instances=$VSC_SCRATCH/$BENCH
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 
-mkdir $home/results_roundingsat
-results=$home/results_roundingsat
+mkdir $home/results_roundingsat_$bench
 
-mkdir $home/running_scripts06d/
-scripts=$home/running_scripts06d/
+mkdir $home/running_scripts_$bench/
+scripts=$home/running_scripts_$bench/
 
 CONFIG1="strongsymm_shortpb_noopt"
 
@@ -33,6 +33,7 @@ for filename in $(ls "$instances"); do
         sed "s/FILENAME/$filename/g" $home/singleSolve.sh > $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
+        sed -i "s/LOC/$bench/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
 	sleep 0.5

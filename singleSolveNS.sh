@@ -13,10 +13,10 @@ module load GCC/10.3.0
 
 cd ..
 
-TMPDIR=$VSC_SCRATCH
+TMPDIR=$VSC_SCRATCH_VO_USER
 home=$VSC_DATA/BreakID_testScripts
-results=$home/results_roundingsat_NS
 
+results=$home/LOC
 instances=INSTANCES
 filename=FILENAME
 config=CONFIG
