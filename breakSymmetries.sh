@@ -4,8 +4,8 @@ home=$(pwd)
 bench=PROOF
 instances=$VSC_SCRATCH/$bench
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
-
-mkdir $home/$bench
+results=breakid_results_$bench
+mkdir $home/$results
 
 SHORTPB="-pb 0"
 LONGPB="-pb 16"
@@ -49,7 +49,7 @@ for filename in $(ls "$instances"); do
         sed -i "s/INSTANCES/$instances_escaped/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sed -i "s/LOC/$bench/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
+        sed -i "s/LOC/$results/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
 	sleep 0.5
