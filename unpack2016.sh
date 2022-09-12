@@ -3,7 +3,6 @@
 cd $VSC_SCRATCH
 
 wget http://www.cril.univ-artois.fr/PB16/bench/PB16-used.tar
-
 tar -xvf PB16-used.tar
 
 mv PB06/final/normalized-PB06/ instances06
@@ -30,35 +29,12 @@ rm -r PB15eval
 mv PB16/normalized-PB16/ instances16
 rm -r PB16
 
-rm PB16-used.tar
-
 for dir in instances*/ ; do
     find "$dir" -type d -name *NLC* -exec rm -rf {} \;
     find "$dir" -type d -name *BIGINT* -exec rm -rf {} \;
     find "$dir" -type d -name *MEDINT* -exec rm -rf {} \;
     find "$dir" -type d -name *SOFT* -exec rm -rf {} \;
     find "$dir" -type d -name *PARTIAL* -exec rm -rf {} \;
-done
-
-for dir in instances*/ ; do
-    dir=${dir%*/}
-    for family in "$dir"/*/ ; do
-        family=${family%*/}
-        find "$family" -mindepth 2 -type f -exec mv -t "$family" -f '{}' +
-        rm -r "$family"/*/
-    done
-done
-
-for dir in instances*/ ; do
-    dir=${dir%*/}
-    for family in "$dir"/*/ ; do
-        family=${family%*/}
-        for instance in "$family"/* ; do
-            instance=${instance%*/}
-            new=$(echo "$instance" | tr "/" "-" | tr " " "_")
-            mv "$instance" "$family/$new"
-        done
-    done
 done
 
 mkdir inst-OPT
@@ -68,15 +44,6 @@ for dir in instances*/ ; do
     find "$dir" -type f -name '*OPT*' -exec mv -i {} inst-OPT/  \;
     find "$dir" -type f -name '*DEC*' -exec mv -i {} inst-DEC/  \;
     find "$dir" -type f -name '*SATUNSAT*' -exec mv -i {} inst-DEC/  \;
-done
-
-
-for dir in inst-*/ ; do
-    dir=${dir%*/}
-    for instance in "$dir"/*.bz2 ; do
-        echo $instance
-        bzip2 -d "$instance"
-    done
 done
 
 

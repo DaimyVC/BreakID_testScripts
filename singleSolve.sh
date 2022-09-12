@@ -40,7 +40,7 @@ writeback() {
   OUTPUT_CODE_ROUNDINGSAT="NA"
 }
 
-{ time cat $TMPDIR/${filename}_${config}_opb.opb | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
+{ time cat $TMPDIR/${filename}_${config}_opb.opb | $home/roundingsatV1 --lp=0 --opt-mode=linear 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
 
 OUTPUT_CODE_ROUNDINGSAT=$(echo $?)
 FOUND_OPT=$(grep '^o ' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[+-]?[0-9]{1,}')
@@ -58,4 +58,7 @@ writeback $config
 
 rm $TMPDIR/${filename}_${config}_rs.txt
 rm $TMPDIR/${filename}_${config}_rstime.txt
-rm $TMPDIR/${filename}_${config}_opb.opb
+#rm $TMPDIR/${filename}_${config}_opb.opb
+
+cd $VSC_DATA
+rm core.*

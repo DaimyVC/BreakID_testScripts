@@ -43,7 +43,7 @@ writeback() {
 
 
 ##BASE CASE, NO SYMM BREAKING
-{ time cat $instances/${filename}.${extension} | $home/roundingsat 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
+{ time cat $instances/${filename}.${extension} | $home/roundingsatV1 --lp=0 --opt-mode=linear 1>$TMPDIR/${filename}_${config}_rs.txt ; } 2>$TMPDIR/${filename}_${config}_rstime.txt
 
 OUTPUT_CODE_ROUNDINGSAT=$(echo $?)
 FOUND_OPT=$(grep '^o ' $TMPDIR/${filename}_${config}_rs.txt | grep -Eo '[+-]?[0-9]{1,}');
@@ -60,5 +60,5 @@ echo "output code: $OUTPUT_CODE_ROUNDINGSAT"
 
 writeback $config
 
-rm $TMPDIR/${filename}_${config}_rs.txt
-rm $TMPDIR/${filename}_${config}_rstime.txt
+#rm $TMPDIR/${filename}_${config}_rs.txt
+#rm $TMPDIR/${filename}_${config}_rstime.txt
