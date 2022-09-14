@@ -1,4 +1,7 @@
 #!/bin/bash
+#SBATCH --job-name=breakSymms
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=20
 
 home=$(pwd)
 bench=instOPT
@@ -54,7 +57,9 @@ for filename in $(ls "$instances"); do
         sed -i "s/ARGS/${ALLARGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         sed -i "s/LOC/$results/g" $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-        sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
-	sleep 0.5
+        #sbatch --job-name=$break_${filename}_{ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_break.sh
+	    #sleep 0.5
     done
 done
+
+parallel -j $SLURM_NTASKS --joblog joblog.txt srun -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh

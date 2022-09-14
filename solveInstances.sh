@@ -1,4 +1,7 @@
 #!/bin/bash
+#SBATCH --job-name=solveInstances
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=20
 
 home=$(pwd)
 bench=instOPT
@@ -38,7 +41,9 @@ for filename in $(ls "$instances"); do
         sed -i "s/CONFIG/${ALLCONFIGS[$i]}/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         sed -i "s/LOC/$results/g" $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
         chmod +x $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
-        sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
-	sleep 0.5
+        #sbatch --job-name=solve_${filename}_${ALLCONFIGS[$i]} $scripts/${filename}_${ALLCONFIGS[$i]}_solve.sh
+	    #sleep 0.5
     done
 done
+
+parallel -j $SLURM_NTASKS --joblog joblog.txt srun -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh
