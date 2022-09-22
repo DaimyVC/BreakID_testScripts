@@ -46,4 +46,4 @@ for filename in $(ls "$instances"); do
     done
 done
 
-parallel -j $SLURM_NTASKS --joblog joblog.txt srun -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh
+parallel -j $SLURM_NTASKS --joblog joblog.txt srun --time=01:00:00 -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh
