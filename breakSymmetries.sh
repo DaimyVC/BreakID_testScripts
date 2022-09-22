@@ -1,10 +1,10 @@
 #!/bin/bash
 #SBATCH --job-name=breakSymms
-#SBATCH --time=24:00:00
+#SBATCH --time=5-00:00:00
 #SBATCH --ntasks=20
 
 home=$(pwd)
-bench=instOPT
+bench=MIPOPT
 instances=$VSC_SCRATCH/$bench
 instances_escaped=$(sed 's;/;\\/;g' <<< "$instances")
 results=breakid_results_$bench
@@ -62,4 +62,5 @@ for filename in $(ls "$instances"); do
     done
 done
 
-parallel -j $SLURM_NTASKS --joblog joblog.txt srun --time=00:30:00 -N 1 -n 1 -c 1 --exact ::: $scripts/*.sh
+parallel --delay 0.2 -j $SLURM_NTASKS --joblog joblog_break_$bench.txt --resume srun --time=00:30:00 -N 1 -n 1 -c 1 --exact ::: $(ls -1 $scripts/*.sh)
+wait

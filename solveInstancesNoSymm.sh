@@ -28,5 +28,5 @@ for filename in $(ls "$instances"); do
 	#sleep 0.5
 done
 
-parallel --delay 0.2 -j $SLURM_NTASKS --joblog joblog.txt --resume srun --time=1:00:00 -N 1 -n 1 -c 1 --exact ::: $(ls -1 $scripts/*.sh)
+parallel --delay 0.2 -j $SLURM_NTASKS --joblog joblog_solveNS_$bench.txt --resume srun --time=1:00:00 -N 1 -n 1 -c 1 --exact ::: $(ls -1 $scripts/*.sh)
 wait
