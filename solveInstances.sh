@@ -3,6 +3,8 @@
 #SBATCH --time=5-00:00:00
 #SBATCH --ntasks=20
 
+module load parallel/20210622-GCCcore-10.3.0
+
 home=$(pwd)
 bench=MIPOPT
 instances=$VSC_SCRATCH/$bench
